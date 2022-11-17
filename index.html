@@ -9,17 +9,16 @@
     </head>
 
     <body class="root">
-        <div class="page">
             <header class="header">
-                <div class="header__container container">
+                <div class="header__container">
                     <a href="#" class="header__logo-link">
-                        <img src="./images/Logo.png" class="header__logo" alt="Логотип" />
+                        <img src="./images/logo.svg" class="header__logo" alt="Логотип" />
                     </a>
                 </div>
             </header>
             <main class="content">
                 <section class="profile">
-                    <div class="profile__container container">
+                    <div class="profile__container">
                         <img src="./images/image.jpg" alt="Аватар профиля" class="profile__avatar" />
                         <div class="profile__info">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -30,7 +29,7 @@
                     </div>
                 </section>
                 <section class="cards">
-                    <ul class="cards__container container">
+                    <ul class="cards__container">
                         <li class="card">
                             <img src="./images/Karachaecsk.png" alt="Древний хран" class="card__image" />
                             <div class="card__info">
@@ -77,18 +76,19 @@
                 </section>
             </main>
             <footer class="footer">
-                <div class="footer__container container">
+                <div class="footer__container">
                     <p class="footer__info">&copy;2022 Mesto Russia</p>
                 </div>
             </footer>
-        </div>
+        
         <div class="popup">
             <div class="popup__container">
                 <button class="popup__btn-close" type="button"></button>
                 <h2 class="popup__title-name">Редактировать профиль</h2>
-                <form class="popup__form">
-                    <input class="popup__input" id="name" name="name" type="text" placeholder="Имя" autocomplete="off" />
-                    <input class="popup__input" id="description" name="description" type="text" placeholder="Вид деятельности" autocomplete="off" /> <button class="popup__btn-save" type="submit">Сохранить</button>
+                <form class="popup__form" name="popupform">
+                    <input class="popup__input" id="name" name="name" required type="text" placeholder="Имя" autocomplete="off" />
+                    <input class="popup__input" id="description" name="description" required type="text" placeholder="Вид деятельности" autocomplete="off" /> 
+                    <button class="popup__btn-save" type="submit">Сохранить</button>
                 </form>
             </div>
         </div>

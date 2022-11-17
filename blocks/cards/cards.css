@@ -1,9 +1,12 @@
 .cards {
     padding-bottom: 67px;
+    margin: 0 auto;
+    max-width: 880px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 920px) {
     .cards {
-        padding-bottom: 48px;
+        /* padding-bottom: 48px; */
+        padding: 0 19px 48px;
     }
 }
