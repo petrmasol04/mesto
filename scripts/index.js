@@ -1,38 +1,64 @@
-const popupElement = document.querySelector('.popup'); //Ищем блок popup в разметке
-const popupBtnCloseElement = popupElement.querySelector('.popup__btn-close'); //Ищем в блоке popup, popup__btn-close
-const popupOpenEditorElement = document.querySelector('.profile__editor'); //Ищем кнопку 'редактировать' в разметке
-const formElement = popupElement.querySelector('.popup__form'); //Ищем форму в блоке popup
-const inputNameElement = formElement.querySelector('#name');
-const inputDescriptionElement = formElement.querySelector('#description'); //Ищем два input в блоке popup__form
+
+const popupProfile = document.querySelector('.popup_profile');
+const popupBtnCloseProfile = popupProfile.querySelector('.popup__btn-close_profile');
+const popupBtnOpenProfile = document.querySelector('.profile__editor');
+const formProfile = popupProfile.querySelector('.popup__form_profile');
+const inputNameProfile = formProfile.querySelector('#name');
+const inputDescriptionProfile = formProfile.querySelector('#description');
 const profileNameElement = document.querySelector('.profile__name');
 const profileDescriptionElement = document.querySelector('.profile__description');
 
-function openPopup() {
+const popupBtnOpenPlace = document.querySelector('.profile__add-mesto');
+const popupPlace = document.querySelector('.popup_place');
+const popupBtnClosePlace = popupPlace.querySelector('.popup__btn-close_place');
+const formPlace = popupPlace.querySelector('.popup__form_place');
+const inputPlace = formPlace.querySelector('#place');
+const inputUrl = formPlace.querySelector('#url');
+
+
+function openPopup(popupElement) {
     popupElement.classList.add('popup_open')
-    rename()
+    rename();
 } // Функция открытия
 
-function closePopup() {
+function closePopup(popupElement) {
     popupElement.classList.remove('popup_open')
 } //  Функция закртыия popup
 
 function rename() {
-    inputNameElement.value = profileNameElement.textContent;
-    inputDescriptionElement.value = profileDescriptionElement.textContent;
+    inputNameProfile.value = profileNameElement.textContent;
+    inputDescriptionProfile.value = profileDescriptionElement.textContent;
 }
 
 function formSubmit(event) {
     event.preventDefault();
-    profileNameElement.textContent = inputNameElement.value;
-    profileDescriptionElement.textContent = inputDescriptionElement.value;
-    closePopup();
+    profileNameElement.textContent = inputNameProfile.value;
+    profileDescriptionElement.textContent = inputDescriptionProfile.value;
+    closePopup(popupProfile);
 } // Функция после клика не перезагружает страницу, сохраняет изменения и закрывает форму
 
 
 
-popupOpenEditorElement.addEventListener('click', openPopup); //Слушатель открытия 
-popupBtnCloseElement.addEventListener('click', closePopup); // Слушатель закрытия
-formElement.addEventListener('submit', formSubmit); // Слушатель сохранения и закрытия формы
+popupBtnOpenProfile.addEventListener('click', function () {
+    openPopup(popupProfile);
+
+}); //Слушатель открытия 
+
+popupBtnCloseProfile.addEventListener('click', function () {
+    closePopup(popupProfile);
+}); // Слушатель закрытия
+
+formProfile.addEventListener('submit', formSubmit); // Слушатель сохранения и закрытия формы
+
+popupBtnOpenPlace.addEventListener('click', function () {
+    openPopup(popupPlace);
+});
+
+popupBtnClosePlace.addEventListener('click', function () {
+    closePopup(popupPlace);
+});
+
+
 
 
 
