@@ -29,50 +29,7 @@
                 </div>
             </section>
             <section class="cards">
-                <ul class="cards__container">
-                    <li class="card">
-                        <img src="./images/Karachaecsk.png" alt="Древний хран" class="card__image" />
-                        <div class="card__info">
-                            <h2 class="card__description">Карачаевск</h2>
-                            <button type="button" class="card__like" aria-label="Нравится"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="./images/kirill-pershin-1404681-unsplash-1.png" alt="Гора на горизонте" class="card__image" />
-                        <div class="card__info">
-                            <h2 class="card__description">Гора Эльбрус</h2>
-                            <button type="button" class="card__like" aria-label="Нравится"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="./images/kirill-pershin-1556355-unsplash.png" alt="Гора" class="card__image" />
-                        <div class="card__info">
-                            <h2 class="card__description">Домбай</h2>
-                            <button type="button" class="card__like" aria-label="Нравится"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="./images/kirill-pershin-1404681-unsplash.png" alt="Гора на горизонте" class="card__image" />
-                        <div class="card__info">
-                            <h2 class="card__description">Гора Эльбрус</h2>
-                            <button type="button" class="card__like" aria-label="Нравится"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="./images/kirill-pershin-1556355-unsplash-1.png" alt="Гора" class="card__image" />
-                        <div class="card__info">
-                            <h2 class="card__description">Домбай</h2>
-                            <button type="button" class="card__like" aria-label="Нравится"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="./images/Karachaevsk2.png" alt="Древний храм" class="card__image" />
-                        <div class="card__info">
-                            <h2 class="card__description">Карачаево-Черкесия</h2>
-                            <button type="button" class="card__like" aria-label="Нравится"></button>
-                        </div>
-                    </li>
-                </ul>
+                <ul class="cards__container"></ul>
             </section>
         </main>
         <footer class="footer">
@@ -81,17 +38,45 @@
             </div>
         </footer>
 
-        <div class="popup">
+        <div class="popup popup_profile">
             <div class="popup__container">
-                <button class="popup__btn-close" type="button"></button>
+                <button class="popup__btn-close popup__btn-close_profile" type="button"></button>
                 <h2 class="popup__title-name">Редактировать профиль</h2>
-                <form class="popup__form" name="popupform">
-                    <input class="popup__input" id="name" name="name" required type="text" placeholder="Имя" autocomplete="off" />
-                    <input class="popup__input" id="description" name="description" required type="text" placeholder="Вид деятельности" autocomplete="off" />
-                    <button class="popup__btn-save" type="submit">Сохранить</button>
+                <form class="popup__form popup__form_profile" name="popupform">
+                    <input class="popup__input popup__input_profile" id="name" name="name" required type="text" placeholder="Имя" autocomplete="off" />
+                    <input class="popup__input popup__input_profile" id="description" name="description" required type="text" placeholder="Вид деятельности" autocomplete="off" />
+                    <button class="popup__btn popup__btn-save" type="submit">Сохранить</button>
                 </form>
             </div>
         </div>
+        <div class="popup popup_place">
+            <div class="popup__container">
+                <button class="popup__btn-close popup__btn-close_place" type="button"></button>
+                <h2 class="popup__title-name">Новое место</h2>
+                <form class="popup__form popup__form_place" name="popupform">
+                    <input class="popup__input popup__input_place" id="place" name="place" required type="text" placeholder="Название" autocomplete="off" />
+                    <input class="popup__input popup__input_place" id="url" name="url" required type="text" placeholder="Сылка на картинка" autocomplete="off" />
+                    <button class="popup__btn popup__btn-creat" type="submit">Создать</button>
+                </form>
+            </div>
+        </div>
+        <div class="popup popup_look">
+            <div class="popup__look-container">
+                <button class="popup__btn-close popup__btn-close_image" type="button" aria-label="Закрыть"></button>
+                <img class="popup__image" src="#" alt="">
+                <p class="popup__caption"></p>
+            </div>
+        </div>
+        <template id="card-template">
+            <li class="card">
+                <img src="#" alt="" class="card__image" />
+                <button type="button" class="card__remove" aria-label="Удалить"></button>
+                <div class="card__info">
+                    <h2 class="card__description"></h2>
+                    <button type="button" class="card__like" aria-label="Нравится"></button>
+                </div>
+            </li>
+        </template>
         <script src="./scripts/index.js"></script>
     </body>
 </html>
