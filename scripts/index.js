@@ -36,7 +36,7 @@ const profileDescriptionElement = document.querySelector('.profile__description'
 
 const popupBtnOpenPlace = document.querySelector('.profile__add-mesto');
 const popupPlace = document.querySelector('.popup_place');
-const popupBtnCreatePlace = popupPlace.querySelector('.popup__btn-create')
+const popupBtnCreatePlace = popupPlace.querySelector('.popup__btn-create');
 const popupBtnClosePlace = popupPlace.querySelector('.popup__btn-close_place');
 const formPlace = popupPlace.querySelector('.popup__form_place');
 const inputPlace = formPlace.querySelector('#place');
@@ -120,9 +120,13 @@ popupBtnOpenProfile.addEventListener('click', function () {
     fillInInputsForEditProfileForm();
 }); //Слушатель открытия 
 
-popupBtnCloseProfile.addEventListener('click', function () {
-    closePopup(popupProfile);
-}); // Слушатель закрытия
+document.querySelectorAll('.popup').forEach(popup => {
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__btn-close')) {
+            closePopup(popup);
+        };
+    });
+});
 
 formProfile.addEventListener('submit', submitEditProfileForm); // Слушатель сохранения и закрытия формы
 
@@ -130,14 +134,6 @@ popupBtnOpenPlace.addEventListener('click', function () {
     openPopup(popupPlace);
     popupBtnCreatePlace.setAttribute('disabled', 'disabled');
     popupBtnCreatePlace.classList.add('popup__btn_disabled');
-});
-
-popupBtnClosePlace.addEventListener('click', function () {
-    closePopup(popupPlace);
-});
-
-popupBtnCloseLook.addEventListener('click', function () {
-    closePopup(popupLook);
 });
 
 formPlace.addEventListener('submit', function (evt) {
