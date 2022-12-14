@@ -13,7 +13,7 @@
     color: #FFF;
     text-align: center;
     transition: all 0.3s ease-in-out;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .popup__btn:hover {
