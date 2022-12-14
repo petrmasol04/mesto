@@ -36,6 +36,7 @@ const profileDescriptionElement = document.querySelector('.profile__description'
 
 const popupBtnOpenPlace = document.querySelector('.profile__add-mesto');
 const popupPlace = document.querySelector('.popup_place');
+const popupBtnCreatePlace = popupPlace.querySelector('.popup__btn-create')
 const popupBtnClosePlace = popupPlace.querySelector('.popup__btn-close_place');
 const formPlace = popupPlace.querySelector('.popup__form_place');
 const inputPlace = formPlace.querySelector('#place');
@@ -51,14 +52,22 @@ const templateCard = document.querySelector('#card-template').content;
 const templateItem = templateCard.querySelector('.card');
 const cardContainer = document.querySelector('.cards__container');
 
+const handlerKeyUp = (e) => {
+    if (e.key === 'Escape') {
+        const modalOpen = document.querySelector('.popup_open');
+        closePopup(modalOpen);
+    }
+};
 
 function openPopup(popupElement) {
-    popupElement.classList.add('popup_open');   // Функция открытия
+    popupElement.classList.add('popup_open');
+    document.addEventListener('keyup', handlerKeyUp);   // Функция открытия
 }
 
 function closePopup(popupElement) {
-    popupElement.classList.remove('popup_open');   //  Функция закртыия popup
-} //  Функция закртыия popup
+    popupElement.classList.remove('popup_open');
+    document.removeEventListener('keyup', handlerKeyUp);   //  Функция закртыия popup
+}
 
 function fillInInputsForEditProfileForm() {
     inputNameProfile.value = profileNameElement.textContent;
@@ -119,6 +128,8 @@ formProfile.addEventListener('submit', submitEditProfileForm); // Слушате
 
 popupBtnOpenPlace.addEventListener('click', function () {
     openPopup(popupPlace);
+    popupBtnCreatePlace.setAttribute('disabled', 'disabled');
+    popupBtnCreatePlace.classList.add('popup__btn_disabled');
 });
 
 popupBtnClosePlace.addEventListener('click', function () {

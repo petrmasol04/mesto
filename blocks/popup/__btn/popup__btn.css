@@ -13,11 +13,11 @@
     color: #FFF;
     text-align: center;
     transition: all 0.3s ease-in-out;
+    cursor: pointer
 }
 
 .popup__btn:hover {
     opacity: 0.8;
-    cursor: pointer;
 }
 
 @media screen and (max-width: 644px) {
