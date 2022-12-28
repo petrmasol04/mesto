@@ -1,7 +1,9 @@
 import initialCards from './arrays.js';
+import Card from './card.js';
+import config from './validateConfig.js';
+import FormValidator from './FormValidator.js';
 
 const popupProfile = document.querySelector('.popup_profile');
-const popupBtnCloseProfile = popupProfile.querySelector('.popup__btn-close_profile');
 const popupBtnOpenProfile = document.querySelector('.profile__editor');
 const formProfile = popupProfile.querySelector('.popup__form_profile');
 const inputNameProfile = formProfile.querySelector('#name');
@@ -12,19 +14,17 @@ const profileDescriptionElement = document.querySelector('.profile__description'
 const popupBtnOpenPlace = document.querySelector('.profile__add-mesto');
 const popupPlace = document.querySelector('.popup_place');
 const popupBtnCreatePlace = popupPlace.querySelector('.popup__btn-create');
-const popupBtnClosePlace = popupPlace.querySelector('.popup__btn-close_place');
+
 const formPlace = popupPlace.querySelector('.popup__form_place');
+
 const inputPlace = formPlace.querySelector('#place');
 const inputUrl = formPlace.querySelector('#url');
 
 
-const popupLook = document.querySelector('.popup_look');
-const popupBtnCloseLook = document.querySelector('.popup__btn-close_image');     // попап картинки
+const popupLook = document.querySelector('.popup_look');    // попап картинки
 const popupLookImg = popupLook.querySelector('.popup__image');
 const popupCaption = popupLook.querySelector('.popup__caption');
 
-const templateCard = document.querySelector('#card-template').content;
-const templateItem = templateCard.querySelector('.card');
 const cardContainer = document.querySelector('.cards__container');
 
 const handlerKeyUp = (e) => {
@@ -55,36 +55,20 @@ function submitEditProfileForm(event) {
     profileDescriptionElement.textContent = inputDescriptionProfile.value;    // Функция после клика не перезагружает страницу, сохраняет изменения и закрывает форму
     closePopup(popupProfile);
 }
-
-// создаем карточку
-function createCard(placeValue, urlValue) {
-    const templateItem = templateCard.querySelector('.card').cloneNode(true);
-    const templateImg = templateItem.querySelector('.card__image');
-    templateImg.alt = placeValue;
-    templateImg.src = urlValue;
-    templateItem.querySelector('.card__description').textContent = placeValue;
-    templateItem.querySelector('.card__remove').addEventListener('click', function (element) {
-        const card = element.target;                                                   // delete
-        card.closest('.card').remove();
-    });
-    templateItem.querySelector('.card__like').addEventListener('click', function (evt) {
-        evt.target.classList.toggle('card__like_active');      // like
-    });
-    templateImg.addEventListener('click', function () {
-        popupLookImg.alt = placeValue;
-        popupLookImg.src = urlValue;
-        popupCaption.textContent = placeValue;   // отобразить картинку
-        openPopup(popupLook);
-    });
-    return templateItem;
+// const cardElement = createCard(cardData, '#card-template');
+function createCard(data, templateSelector) {
+    const card = new Card(data, templateSelector);
+    const cardElement = card.generateCard();
+    return cardElement;
 }
 
-function prependCard(textValue, linkValue) {
-    cardContainer.prepend(createCard(textValue, linkValue));
+function prependCard(card) {
+    cardContainer.prepend(card);
 };
 
 initialCards.forEach(function (element) {
-    prependCard(element.name, element.link);
+    const cardElement = createCard(element, '#card-template');
+    prependCard(cardElement);
 });
 
 
@@ -111,13 +95,27 @@ popupBtnOpenPlace.addEventListener('click', function () {
     popupBtnCreatePlace.classList.add('popup__btn_disabled');
 });
 
+function getCardData() {
+    const cardData = { name: inputPlace.value, link: inputUrl.value };
+    return cardData;
+}
+
 formPlace.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    prependCard(inputPlace.value, inputUrl.value);
+    const cardData = getCardData();
+    const cardElement = createCard(cardData, '#card-template');
+    prependCard(cardElement);
     inputPlace.value = '';
     inputUrl.value = '';
     closePopup(popupPlace);
 });
+
+document.querySelectorAll(config.formSelector).forEach(form => {
+    const formValdidate = new FormValidator(config, form);
+    formValdidate.enableValidation();
+})
+
+export { popupLookImg, popupCaption, openPopup, popupLook }
 
 
 
