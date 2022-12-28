@@ -40,6 +40,14 @@ class FormValidator {
         this._isValid ? this._makeButtonActive() : this._makeButtonInactive();
     };
 
+    _makeEventListeners() {
+        this._formElement.addEventListener('reset', () => {
+            setTimeout(() => {
+                this._toggleButtonValid();
+            }, 0);
+        });
+    }
+
     enableValidation() {
         this._inputs = [...this._formElement.querySelectorAll(this._inputSelector)];
         this._button = this._formElement.querySelector(this._submitButtonSelector);
@@ -48,6 +56,7 @@ class FormValidator {
                 this._checkInputValid(input);
                 this._toggleButtonValid();
             })
+            this._makeEventListeners();
         })
     }
 }

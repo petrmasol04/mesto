@@ -91,8 +91,7 @@ formProfile.addEventListener('submit', submitEditProfileForm); // Слушате
 
 popupBtnOpenPlace.addEventListener('click', function () {
     openPopup(popupPlace);
-    popupBtnCreatePlace.setAttribute('disabled', 'disabled');
-    popupBtnCreatePlace.classList.add('popup__btn_disabled');
+    formPlace.reset();
 });
 
 function getCardData() {
@@ -105,8 +104,6 @@ formPlace.addEventListener('submit', function (evt) {
     const cardData = getCardData();
     const cardElement = createCard(cardData, '#card-template');
     prependCard(cardElement);
-    inputPlace.value = '';
-    inputUrl.value = '';
     closePopup(popupPlace);
 });
 
