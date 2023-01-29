@@ -1,7 +1,8 @@
-import initialCards from './arrays.js';
-import Card from './card.js';
-import config from './validateConfig.js';
-import FormValidator from './FormValidator.js';
+import initialCards from '../scripts/arrays.js';
+import Card from '../components/Card.js';
+import config from '../scripts/validateConfig.js';
+import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js';
 
 const popupProfile = document.querySelector('.popup_profile');
 const popupBtnOpenProfile = document.querySelector('.profile__editor');
@@ -13,7 +14,7 @@ const profileDescriptionElement = document.querySelector('.profile__description'
 
 const popupBtnOpenPlace = document.querySelector('.profile__add-mesto');
 const popupPlace = document.querySelector('.popup_place');
-const popupBtnCreatePlace = popupPlace.querySelector('.popup__btn-create');
+// const popupBtnCreatePlace = popupPlace.querySelector('.popup__btn-create');
 
 const formPlace = popupPlace.querySelector('.popup__form_place');
 
@@ -25,7 +26,7 @@ const popupLook = document.querySelector('.popup_look');    // попап кар
 const popupLookImg = popupLook.querySelector('.popup__image');
 const popupCaption = popupLook.querySelector('.popup__caption');
 
-const cardContainer = document.querySelector('.cards__container');
+
 
 const handlerKeyUp = (e) => {
     if (e.key === 'Escape') {
@@ -33,6 +34,7 @@ const handlerKeyUp = (e) => {
         closePopup(modalOpen);
     }
 };
+
 
 function openPopup(popupElement) {
     popupElement.classList.add('popup_open');
@@ -62,15 +64,17 @@ function createCard(data, templateSelector) {
     return cardElement;
 }
 
-function prependCard(card) {
-    cardContainer.prepend(card);
-};
+const showCard = new Section({
+    items: initialCards,
+    renderer: renderCard
+}, '.cards__container');
 
-initialCards.forEach(function (element) {
-    const cardElement = createCard(element, '#card-template');
-    prependCard(cardElement);
-});
+showCard.renderItems();
 
+function renderCard(data) {
+    const card = createCard(data, "#card-template");
+    showCard.addItem(card);
+}
 
 //Обработчики событий.....
 
@@ -103,7 +107,7 @@ formPlace.addEventListener('submit', function (evt) {
     evt.preventDefault();
     const cardData = getCardData();
     const cardElement = createCard(cardData, '#card-template');
-    prependCard(cardElement);
+    showCard.addItem(cardElement);
     closePopup(popupPlace);
 });
 
