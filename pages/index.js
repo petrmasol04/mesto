@@ -9,8 +9,6 @@ import UserInfo from '../components/UserInfo.js';
 
 const popupBtnOpenPlace = document.querySelector('.profile__add-mesto');
 const popupBtnOpenProfile = document.querySelector('.profile__editor');
-const popupPlace = document.querySelector('.popup_place');
-const formPlace = popupPlace.querySelector('.popup__form_place');
 
 const popupImage = new PopupWithImage('.popup_look');
 popupImage.setEventListeners();
@@ -18,8 +16,8 @@ popupImage.setEventListeners();
 const popupProfile = new PopupWithForm('.popup_profile', submitEditProfileForm);
 popupProfile.setEventListeners();
 
-const popupPlace2 = new PopupWithForm('.popup_place', submitEditPlaceForm);
-popupPlace2.setEventListeners();
+const popupPlace = new PopupWithForm('.popup_place', submitEditPlaceForm);
+popupPlace.setEventListeners();
 
 const userInfo = new UserInfo('.profile__name', '.profile__description');
 
@@ -51,15 +49,14 @@ popupBtnOpenProfile.addEventListener('click', function () {
 }); //Слушатель открытия 
 
 popupBtnOpenPlace.addEventListener('click', function () {
-    popupPlace2.open();
-    formPlace.reset();
+    popupPlace.open();
 });
 
 function submitEditPlaceForm(evt, data) {
     evt.preventDefault();
     const cardElement = createCard(data, '#card-template');
     showCard.addItem(cardElement);
-    popupPlace2.close();
+    popupPlace.close();
 };
 
 function submitEditProfileForm(evt, data) {
