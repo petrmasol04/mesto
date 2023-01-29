@@ -3,46 +3,32 @@ import Card from '../components/Card.js';
 import config from '../scripts/validateConfig.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
-import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
-
-
-const popupProfile = document.querySelector('.popup_profile');
-const popupBtnOpenProfile = document.querySelector('.profile__editor');
-const formProfile = popupProfile.querySelector('.popup__form_profile');
-const inputNameProfile = formProfile.querySelector('#name');
-const inputDescriptionProfile = formProfile.querySelector('#description');
-const profileNameElement = document.querySelector('.profile__name');
-const profileDescriptionElement = document.querySelector('.profile__description');
+import PopupWithForm from '../components/PopupWithForm.js';
 
 const popupBtnOpenPlace = document.querySelector('.profile__add-mesto');
+const popupBtnOpenProfile = document.querySelector('.profile__editor');
+const profileNameElement = document.querySelector('.profile__name');
+const profileDescriptionElement = document.querySelector('.profile__description');
 const popupPlace = document.querySelector('.popup_place');
-// const popupBtnCreatePlace = popupPlace.querySelector('.popup__btn-create');
-
 const formPlace = popupPlace.querySelector('.popup__form_place');
-
-const inputPlace = formPlace.querySelector('#place');
-const inputUrl = formPlace.querySelector('#url');
 
 const popupImage = new PopupWithImage('.popup_look');
 popupImage.setEventListeners();
 
-const popupProfile2 = new Popup('.popup_profile');
-popupProfile2.setEventListeners();
+const popupProfile = new PopupWithForm('.popup_profile', submitEditProfileForm);
+popupProfile.setEventListeners();
 
-const popupPlace2 = new Popup('.popup_place');
+const popupPlace2 = new PopupWithForm('.popup_place', submitEditPlaceForm);
 popupPlace2.setEventListeners();
 
-function fillInInputsForEditProfileForm() {
-    inputNameProfile.value = profileNameElement.textContent;
-    inputDescriptionProfile.value = profileDescriptionElement.textContent;
-}
 
-function submitEditProfileForm(event) {
-    event.preventDefault();
-    profileNameElement.textContent = inputNameProfile.value;
-    profileDescriptionElement.textContent = inputDescriptionProfile.value;    // Функция после клика не перезагружает страницу, сохраняет изменения и закрывает форму
-    popupProfile2.close();
+function fillInInputsForEditProfileForm() {
+    const data = {
+        name: profileNameElement.textContent,
+        description: profileDescriptionElement.textContent
+    }
+    popupProfile.setInputValues(data)
 }
 
 function createCard(data, templateSelector) {
@@ -63,45 +49,35 @@ function renderCard(data) {
     showCard.addItem(card);
 }
 
-//Обработчики событий.....
-
 popupBtnOpenProfile.addEventListener('click', function () {
-    popupProfile2.open();
+    popupProfile.open();
     fillInInputsForEditProfileForm();
 }); //Слушатель открытия 
-
-// document.querySelectorAll('.popup').forEach(popup => {
-//     popup.addEventListener('mousedown', (evt) => {
-//         if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__btn-close')) {
-//             closePopup(popup);
-//         };
-//     });
-// });
-
-formProfile.addEventListener('submit', submitEditProfileForm); // Слушатель сохранения и закрытия формы
 
 popupBtnOpenPlace.addEventListener('click', function () {
     popupPlace2.open();
     formPlace.reset();
 });
 
-function getCardData() {
-    const cardData = { name: inputPlace.value, link: inputUrl.value };
-    return cardData;
-}
-
-formPlace.addEventListener('submit', function (evt) {
+function submitEditPlaceForm(evt, data) {
     evt.preventDefault();
-    const cardData = getCardData();
-    const cardElement = createCard(cardData, '#card-template');
+    const cardElement = createCard(data, '#card-template');
     showCard.addItem(cardElement);
     popupPlace2.close();
-});
+};
+
+function submitEditProfileForm(evt, data) {
+    evt.preventDefault();
+    profileNameElement.textContent = data.name;
+    profileDescriptionElement.textContent = data.description;    // Функция после клика не перезагружает страницу, сохраняет изменения и закрывает форму
+    popupProfile.close();
+}
 
 document.querySelectorAll(config.formSelector).forEach(form => {
     const formValdidate = new FormValidator(config, form);
     formValdidate.enableValidation();
 })
+
 
 export { popupImage }
 
