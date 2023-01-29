@@ -5,11 +5,10 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 
 const popupBtnOpenPlace = document.querySelector('.profile__add-mesto');
 const popupBtnOpenProfile = document.querySelector('.profile__editor');
-const profileNameElement = document.querySelector('.profile__name');
-const profileDescriptionElement = document.querySelector('.profile__description');
 const popupPlace = document.querySelector('.popup_place');
 const formPlace = popupPlace.querySelector('.popup__form_place');
 
@@ -22,17 +21,14 @@ popupProfile.setEventListeners();
 const popupPlace2 = new PopupWithForm('.popup_place', submitEditPlaceForm);
 popupPlace2.setEventListeners();
 
+const userInfo = new UserInfo('.profile__name', '.profile__description');
 
 function fillInInputsForEditProfileForm() {
-    const data = {
-        name: profileNameElement.textContent,
-        description: profileDescriptionElement.textContent
-    }
-    popupProfile.setInputValues(data)
+    popupProfile.setInputValues(userInfo.getUserInfo());
 }
 
 function createCard(data, templateSelector) {
-    const card = new Card(data, templateSelector);
+    const card = new Card(data, templateSelector, handleCardClick);
     const cardElement = card.generateCard();
     return cardElement;
 }
@@ -68,8 +64,7 @@ function submitEditPlaceForm(evt, data) {
 
 function submitEditProfileForm(evt, data) {
     evt.preventDefault();
-    profileNameElement.textContent = data.name;
-    profileDescriptionElement.textContent = data.description;    // Функция после клика не перезагружает страницу, сохраняет изменения и закрывает форму
+    userInfo.setUserInfo(data)
     popupProfile.close();
 }
 
@@ -78,8 +73,9 @@ document.querySelectorAll(config.formSelector).forEach(form => {
     formValdidate.enableValidation();
 })
 
-
-export { popupImage }
+function handleCardClick(name, link) {
+    popupImage.open(name, link);
+}
 
 
 

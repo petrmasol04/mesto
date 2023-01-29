@@ -1,10 +1,9 @@
-import { popupImage } from '../pages/index.js';
-
 class Card {
-    constructor(data, templateSelector) {
+    constructor(data, templateSelector, handleCardClick) {
         this._name = data.name;
         this._link = data.link;
         this._templateSelector = templateSelector;  // #card_template
+        this._handleCardClick = handleCardClick;
     }
 
     _getElement() {
@@ -20,16 +19,11 @@ class Card {
         this._likeButton.classList.toggle('card__like_active');
     }
 
-    _openPopupImg() {
-        popupImage.open(this._name, this._link);
-    }
-
-
     _setEventLiseners() {
         this._cardElement.querySelector('.card__remove').addEventListener('click', () => this._deleteCard());
         this._likeButton = this._cardElement.querySelector('.card__like');
         this._likeButton.addEventListener('click', () => this._likeCard());
-        this._cardImage.addEventListener('click', () => this._openPopupImg());
+        this._cardImage.addEventListener('click', () => this._handleCardClick(this._name, this._link));
     }
 
     generateCard() {
