@@ -3,6 +3,9 @@ import Card from '../components/Card.js';
 import config from '../scripts/validateConfig.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+
 
 const popupProfile = document.querySelector('.popup_profile');
 const popupBtnOpenProfile = document.querySelector('.profile__editor');
@@ -21,30 +24,14 @@ const formPlace = popupPlace.querySelector('.popup__form_place');
 const inputPlace = formPlace.querySelector('#place');
 const inputUrl = formPlace.querySelector('#url');
 
+const popupImage = new PopupWithImage('.popup_look');
+popupImage.setEventListeners();
 
-const popupLook = document.querySelector('.popup_look');    // попап картинки
-const popupLookImg = popupLook.querySelector('.popup__image');
-const popupCaption = popupLook.querySelector('.popup__caption');
+const popupProfile2 = new Popup('.popup_profile');
+popupProfile2.setEventListeners();
 
-
-
-const handlerKeyUp = (e) => {
-    if (e.key === 'Escape') {
-        const modalOpen = document.querySelector('.popup_open');
-        closePopup(modalOpen);
-    }
-};
-
-
-function openPopup(popupElement) {
-    popupElement.classList.add('popup_open');
-    document.addEventListener('keyup', handlerKeyUp);   // Функция открытия
-}
-
-function closePopup(popupElement) {
-    popupElement.classList.remove('popup_open');
-    document.removeEventListener('keyup', handlerKeyUp);   //  Функция закртыия popup
-}
+const popupPlace2 = new Popup('.popup_place');
+popupPlace2.setEventListeners();
 
 function fillInInputsForEditProfileForm() {
     inputNameProfile.value = profileNameElement.textContent;
@@ -55,9 +42,9 @@ function submitEditProfileForm(event) {
     event.preventDefault();
     profileNameElement.textContent = inputNameProfile.value;
     profileDescriptionElement.textContent = inputDescriptionProfile.value;    // Функция после клика не перезагружает страницу, сохраняет изменения и закрывает форму
-    closePopup(popupProfile);
+    popupProfile2.close();
 }
-// const cardElement = createCard(cardData, '#card-template');
+
 function createCard(data, templateSelector) {
     const card = new Card(data, templateSelector);
     const cardElement = card.generateCard();
@@ -79,22 +66,22 @@ function renderCard(data) {
 //Обработчики событий.....
 
 popupBtnOpenProfile.addEventListener('click', function () {
-    openPopup(popupProfile);
+    popupProfile2.open();
     fillInInputsForEditProfileForm();
 }); //Слушатель открытия 
 
-document.querySelectorAll('.popup').forEach(popup => {
-    popup.addEventListener('mousedown', (evt) => {
-        if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__btn-close')) {
-            closePopup(popup);
-        };
-    });
-});
+// document.querySelectorAll('.popup').forEach(popup => {
+//     popup.addEventListener('mousedown', (evt) => {
+//         if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__btn-close')) {
+//             closePopup(popup);
+//         };
+//     });
+// });
 
 formProfile.addEventListener('submit', submitEditProfileForm); // Слушатель сохранения и закрытия формы
 
 popupBtnOpenPlace.addEventListener('click', function () {
-    openPopup(popupPlace);
+    popupPlace2.open();
     formPlace.reset();
 });
 
@@ -108,7 +95,7 @@ formPlace.addEventListener('submit', function (evt) {
     const cardData = getCardData();
     const cardElement = createCard(cardData, '#card-template');
     showCard.addItem(cardElement);
-    closePopup(popupPlace);
+    popupPlace2.close();
 });
 
 document.querySelectorAll(config.formSelector).forEach(form => {
@@ -116,7 +103,7 @@ document.querySelectorAll(config.formSelector).forEach(form => {
     formValdidate.enableValidation();
 })
 
-export { popupLookImg, popupCaption, openPopup, popupLook }
+export { popupImage }
 
 
 

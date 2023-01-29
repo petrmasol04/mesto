@@ -1,4 +1,4 @@
-import { popupLookImg, popupCaption, openPopup, popupLook } from '../pages/index.js';
+import { popupImage } from '../pages/index.js';
 
 class Card {
     constructor(data, templateSelector) {
@@ -21,10 +21,7 @@ class Card {
     }
 
     _openPopupImg() {
-        popupLookImg.alt = this._name;
-        popupLookImg.src = this._link;
-        popupCaption.textContent = this._name;   // отобразить картинку
-        openPopup(popupLook);
+        popupImage.open(this._name, this._link);
     }
 
 
