@@ -1,3 +1,4 @@
+import './index.css';
 import initialCards from '../scripts/arrays.js';
 import Card from '../components/Card.js';
 import config from '../scripts/validateConfig.js';
@@ -21,14 +22,14 @@ popupPlace.setEventListeners();
 
 const userInfo = new UserInfo('.profile__name', '.profile__description');
 
-function fillInInputsForEditProfileForm() {
-    popupProfile.setInputValues(userInfo.getUserInfo());
-}
-
 function createCard(data, templateSelector) {
     const card = new Card(data, templateSelector, handleCardClick);
     const cardElement = card.generateCard();
     return cardElement;
+}
+
+function fillInInputsForEditProfileForm() {
+    popupProfile.setInputValues(userInfo.getUserInfo());
 }
 
 const showCard = new Section({
@@ -73,6 +74,10 @@ document.querySelectorAll(config.formSelector).forEach(form => {
 function handleCardClick(name, link) {
     popupImage.open(name, link);
 }
+
+
+
+
 
 
 
