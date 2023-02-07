@@ -24,8 +24,7 @@ const userInfo = new UserInfo('.profile__name', '.profile__description');
 
 function createCard(data, templateSelector) {
     const card = new Card(data, templateSelector, handleCardClick);
-    const cardElement = card.generateCard();
-    return cardElement;
+    return card.generateCard();
 }
 
 function fillInInputsForEditProfileForm() {

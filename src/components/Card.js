@@ -7,8 +7,12 @@ class Card {
     }
 
     _getElement() {
-        const cardElement = document.querySelector(this._templateSelector).content.querySelector('.card').cloneNode(true);
-        return cardElement;
+        return document
+            .querySelector(this._templateSelector)
+            .content
+            .querySelector('.card')
+            .cloneNode(true);
+
     }
 
     _deleteCard() {
