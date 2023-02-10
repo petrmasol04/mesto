@@ -1,4 +1,4 @@
-.profile__edit-acatar {
+.profile__edit-avatar {
     background-image: url(../../../images/edit-avatar.png);
     background-repeat: no-repeat;
     background-position: center;
@@ -8,8 +8,8 @@
     min-height: 120px;
     position: absolute;
     border-radius: 50%;
-    transition: opacity .3s;
     opacity: 0;
+    transition: opacity .3s;
 }
 
 .profile__edit-avatar:hover {
