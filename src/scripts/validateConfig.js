@@ -7,4 +7,9 @@ const config = {
     errorClass: 'popup__error_visible'
 }
 
-export default config;
+const apiConfig = {
+    token: '0f48b666-db42-4018-a738-6a84dc7b3522',
+    cohort: 'cohort-59'
+}
+
+export { config, apiConfig };
