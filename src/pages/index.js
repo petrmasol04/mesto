@@ -1,12 +1,14 @@
 import './index.css';
 import initialCards from '../scripts/arrays.js';
 import Card from '../components/Card.js';
-import config from '../scripts/validateConfig.js';
+import { config, apiConfig } from '../scripts/configData.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
+
 
 const popupBtnOpenPlace = document.querySelector('.profile__add-mesto');
 const popupBtnOpenProfile = document.querySelector('.profile__editor');
@@ -31,6 +33,12 @@ function fillInInputsForEditProfileForm() {
     popupProfile.setInputValues(userInfo.getUserInfo());
 }
 
+const api = new Api(apiConfig);
+console.log(`что нибудь`)
+api.getUserInfo()
+    .then((result) => {
+        console.log(result);
+    });
 const showCard = new Section({
     items: initialCards,
     renderer: renderCard
