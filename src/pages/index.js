@@ -67,8 +67,6 @@ function deleteCard(card) {
         }).catch((err) => {
             console.log(err);
         });
-    card.deleteCard();
-    popupWithConfirmation.close();
 }
 
 function fillInInputsForEditProfileForm() {
